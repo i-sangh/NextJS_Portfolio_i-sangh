@@ -118,6 +118,10 @@ export function Globe({ globeConfig, data }: WorldProps) {
     const points = []; // Change let to const
     for (let i = 0; i < arcs.length; i++) {
       const arc = arcs[i];
+      if (isNaN(arc.startLat) || isNaN(arc.startLng) || isNaN(arc.endLat) || isNaN(arc.endLng)) {
+        console.error(`Invalid lat/lng for arc: ${JSON.stringify(arc)}`);
+        continue; // Skip this arc if lat/lng is invalid
+      }
       const rgb = hexToRgb(arc.color) as { r: number; g: number; b: number };
       points.push({
         size: defaultProps.pointSize,
